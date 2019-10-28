@@ -13,13 +13,11 @@
         "--socket=wayland",
         "--socket=pulseaudio",
         "--share=network",
-        /* Upstream doesn't respect XDG... */
         "--filesystem=xdg-pictures",
         "--filesystem=xdg-desktop",
         "--filesystem=xdg-videos",
         "--filesystem=xdg-documents",
         "--filesystem=xdg-download",
-        /* needed for video chat */
         "--device=all"
     ],
     "modules": [
