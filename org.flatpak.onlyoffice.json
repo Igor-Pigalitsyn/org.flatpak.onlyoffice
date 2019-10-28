@@ -1,11 +1,11 @@
 {
-    "app-id": "org.flatpak.onlyoffice",
+    "app-id": "org.onlyoffice.desktopeditors",
     "base": "io.atom.electron.BaseApp",
     "base-version": "18.08",
     "runtime": "org.freedesktop.Platform",
     "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
-    "command": "onlyoffice",
+    "command": "desktopeditors",
     "separate-locales": false,
     "finish-args": [
         "--share=ipc",
@@ -22,11 +22,11 @@
     ],
     "modules": [
         {
-            "name": "onlyoffice",
+            "name": "desktopeditors",
             "buildsystem": "simple",
             "build-commands": [
                 "install -Dm755 apply_extra /app/bin/apply_extra",
-                "install -Dm755 onlyoffice /app/bin/onlyoffice",
+                "install -Dm755 desktopeditors /app/bin/desktopeditors",
                 "cp /usr/bin/ar /app/bin",
                 "ARCH_TRIPLE=$(gcc --print-multiarch) && cp /usr/lib/${ARCH_TRIPLE}/libbfd-*.so /app/lib"
             ],
@@ -37,14 +37,13 @@
                     "commands": [
                         "ar x onlyoffice-desktopeditors_amd64.deb",
                         "tar xf data.tar.xz",
-                        "mv opt/onlyoffice .",
                         "mkdir -p export/share/applications",
-                        "sed 's|Icon=.*|Icon=org.flatpak.onlyoffice|; s|Exec=.*|Exec=onlyoffice|;' usr/share/applications/desktopeditors.desktop > export/share/applications/org.flatpak.onlyoffice.desktop",
-                        "echo 'StartupWMClass=onlyoffice' >> export/share/applications/org.flatpak.onlyoffice.desktop",
+                        "sed 's|Icon=.*|Icon=org.onlyoffice.desktopeditors|; s|Exec=.*|Exec=desktopeditors|;' usr/share/applications/desktopeditors.desktop > export/share/applications/org.onlyoffice.desktopeditors.desktop",
+                        "echo 'StartupWMClass=onlyoffice' >> export/share/applications/org.onlyoffice.desktopeditors.desktop",
                         "for icon_size in 16 24 32 48 64 128 256; do
-                            install -Dm644 onlyoffice/desktopeditors/asc-de-${icon_size}.png export/share/icons/hicolor/${icon_size}x${icon_size}/apps/org.flatpak.onlyoffice.png
+                            install -Dm644 opt/onlyoffice/desktopeditors/asc-de-${icon_size}.png export/share/icons/hicolor/${icon_size}x${icon_size}/apps/org.onlyoffice.desktopeditors.png
                         done",
-                        "rm -r onlyoffice-desktopeditors_amd64.deb control.tar.gz data.tar.xz debian-binary opt usr"
+                        "rm -r onlyoffice-desktopeditors_amd64.deb control.tar.gz data.tar.xz debian-binary usr"
                     ]
                 },
                 {
@@ -56,10 +55,10 @@
                 },
                 {
                     "type": "script",
-                    "dest-filename": "onlyoffice",
+                    "dest-filename": "desktopeditors",
                     "commands": [
                       "export LD_LIBRARY_PATH=./:$LD_LIBRARY_PATH",
-                      "cd /app/extra/onlyoffice/desktopeditors/",
+                      "cd /app/extra/opt/onlyoffice/desktopeditors/",
                       "exec ./DesktopEditors $@"
                     ]
                 }
